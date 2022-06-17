@@ -1,0 +1,4 @@
+rodar os segguiintes comandos: 
+1°- pip install -r dependencias.txt
+2° - uvicorn app.main:app --reload
+api estará no endereço http://127.0.0.1:8000/docs

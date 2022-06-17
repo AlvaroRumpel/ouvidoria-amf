@@ -2,12 +2,14 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ouvidoria_front/response_form/controller/response_form_controller.dart';
 import 'package:ouvidoria_front/utils/btn_standart.dart';
 import 'package:ouvidoria_front/utils/colors.dart';
 import 'package:ouvidoria_front/utils/text_field_standart.dart';
 import 'package:ouvidoria_front/utils/text_standart.dart';
 
 class ResponseFormPage extends StatelessWidget {
+  ResponseFormController ct = Get.put(ResponseFormController());
   ResponseFormPage({Key? key}) : super(key: key);
 
   @override
@@ -72,8 +74,9 @@ class ResponseFormPage extends StatelessWidget {
                     ),
                   ],
                 ),
+                width: double.maxFinite,
                 child: Text(
-                  'Eu gosto muito da AMF. Que legal Eu gosto muito da AMF. Que legal Eu gosto muito da AMF. Que legal Eu gosto muito da AMF. Que legal Eu gosto muito da AMF. Que legal ',
+                  ct.data.message,
                   style: GoogleFonts.inter(),
                 ),
               ),

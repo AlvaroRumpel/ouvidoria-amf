@@ -23,7 +23,7 @@ class CustomColors {
   static const Color tertiaryColor = Color(0xffEDDF84);
   static const Color labelColor = Color(0xffBCBCBC);
   static const Color whiteSecondary = Color(0xffF0F0F0);
-  static const Color container = Color(0xffffffff);
+  static const Color container = Color(0xfff7f7f7);
   static const Color errorColor = Color(0xFFFF2A08);
   static const Color sucessColor = Color(0xff4DB38A);
 }

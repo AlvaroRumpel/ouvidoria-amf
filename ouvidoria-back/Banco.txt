@@ -1,0 +1,7 @@
+como está montada cada tabela do banco? 
+tabela usuário, txt com dados separados por vírgula na seguinte sequencia:
+id, usuario, senha
+
+tabela comentarios, txt com dados separados por vírgula na seguinte sequencia:
+id, assunto, texto, email, resposta, setor
+os dados ue não forem respondidos devem ser enviados como null

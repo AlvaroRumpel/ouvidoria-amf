@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ouvidoria_front/comments_view/controller/comment_view_controller.dart';
 import 'package:ouvidoria_front/utils/btn_standart.dart';
 import 'package:ouvidoria_front/utils/btn_text_standart.dart';
 import 'package:ouvidoria_front/utils/colors.dart';
@@ -8,6 +9,7 @@ import 'package:ouvidoria_front/utils/text_field_standart.dart';
 import 'package:ouvidoria_front/utils/text_standart.dart';
 
 class CommentsViewPage extends StatelessWidget {
+  CommentViewController ct = Get.put(CommentViewController());
   CommentsViewPage({Key? key}) : super(key: key);
   ScrollController scroll = ScrollController();
   @override
@@ -49,73 +51,81 @@ class CommentsViewPage extends StatelessWidget {
             TextFieldStandart(
               hintText: 'Pesquisar',
             ),
-            Expanded(
-              child: Scrollbar(
-                scrollbarOrientation: ScrollbarOrientation.bottom,
-                thumbVisibility:
-                    MediaQuery.of(context).size.width > 500 ? true : false,
-                trackVisibility:
-                    MediaQuery.of(context).size.width > 500 ? true : false,
-                controller: scroll,
-                child: ListView.builder(
-                  scrollDirection: MediaQuery.of(context).size.width > 500
-                      ? Axis.horizontal
-                      : Axis.vertical,
-                  shrinkWrap: true,
+            ct.obx(
+              (state) => Expanded(
+                child: Scrollbar(
+                  scrollbarOrientation: ScrollbarOrientation.bottom,
+                  thumbVisibility:
+                      MediaQuery.of(context).size.width > 500 ? true : false,
+                  trackVisibility:
+                      MediaQuery.of(context).size.width > 500 ? true : false,
                   controller: scroll,
-                  itemCount: 10,
-                  itemBuilder: (_, index) => Padding(
-                    padding: const EdgeInsets.only(
-                      left: 8.0,
-                      right: 8.0,
-                      top: 16,
-                      bottom: 24,
-                    ),
-                    child: Container(
-                      width: 250,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        // color: CustomColors.container,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
-                            blurRadius: 4,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
-                          ),
-                        ],
+                  child: ListView.builder(
+                    scrollDirection: MediaQuery.of(context).size.width > 500
+                        ? Axis.horizontal
+                        : Axis.vertical,
+                    shrinkWrap: true,
+                    controller: scroll,
+                    itemCount: state!.length,
+                    itemBuilder: (_, index) => Padding(
+                      padding: const EdgeInsets.only(
+                        left: 8.0,
+                        right: 8.0,
+                        top: 16,
+                        bottom: 24,
                       ),
-                      child: InkWell(
-                        onTap: () => Get.toNamed('/response-form'),
-                        splashColor: CustomColors.blackSecondary,
-                        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                            (states) => CustomColors.container),
-                        child: Column(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: TextStandart(text: 'Cleito'),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: TextStandart(text: 'Assunto assunto'),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(
-                                'Eu gosto muito da AMF. Que legal Eu gosto muito da AMF. Que legal Eu gosto muito da AMF. Que legal Eu gosto muito da AMF. Que legal Eu gosto muito da AMF. Que legal ',
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
-                                style: GoogleFonts.inter(),
-                              ),
+                      child: Container(
+                        width: 250,
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: CustomColors.container,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.25),
+                              blurRadius: 4,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
                             ),
                           ],
+                        ),
+                        child: InkWell(
+                          onTap: () => Get.toNamed('/response-form',
+                              arguments: state[index]),
+                          splashColor: CustomColors.blackSecondary,
+                          overlayColor:
+                              MaterialStateProperty.resolveWith<Color?>(
+                                  (states) => CustomColors.container),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child:
+                                    TextStandart(text: state[index].department),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: TextStandart(text: state[index].subject),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Text(
+                                  state[index].message,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                  style: GoogleFonts.inter(),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
+              ),
+              onLoading: const Center(
+                child: CircularProgressIndicator(),
               ),
             ),
           ],

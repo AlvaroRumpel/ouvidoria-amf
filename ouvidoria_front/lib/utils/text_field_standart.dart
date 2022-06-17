@@ -6,17 +6,20 @@ class TextFieldStandart extends StatelessWidget {
   String? hintText;
   int? maxLength;
   int? maxLines;
+  TextEditingController? controller;
 
   TextFieldStandart({
     Key? key,
     this.hintText,
     this.maxLength,
     this.maxLines,
+    this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       maxLength: maxLength,
       maxLines: maxLines,
       decoration: InputDecoration(

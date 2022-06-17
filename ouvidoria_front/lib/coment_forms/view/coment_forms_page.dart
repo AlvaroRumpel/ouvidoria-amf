@@ -71,6 +71,7 @@ class ComentFormsPage extends StatelessWidget {
               ),
               TextStandart(text: 'Setor'),
               DropdownSearch(
+                onChanged: (value) => ct.department = value as String,
                 dropdownDecoratorProps: DropDownDecoratorProps(
                   baseStyle: GoogleFonts.inter(
                     color: CustomColors.secondaryColor,
@@ -94,17 +95,24 @@ class ComentFormsPage extends StatelessWidget {
                   ),
                 ),
                 items: const [
-                  'ssfs',
-                  'ssasdfs',
-                  'ssqqfs',
+                  'Administrativo',
+                  'Financeiro',
+                  'Docente',
+                  'Relacionamento',
+                  'Juridico',
+                  'Secretaria',
                 ],
               ),
               TextStandart(text: 'Assunto'),
               TextFieldStandart(
+                controller: ct.subject,
                 hintText: 'Assunto',
+                maxLength: 40,
+                maxLines: 1,
               ),
               TextStandart(text: 'Comentário'),
               TextFieldStandart(
+                controller: ct.comment,
                 hintText: 'Descreva o seu comentário...',
                 maxLength: 255,
                 maxLines: 3,
@@ -113,7 +121,7 @@ class ComentFormsPage extends StatelessWidget {
                 alignment: Alignment.center,
                 child: BtnStandart(
                   text: 'Enviar',
-                  onPressed: () => ct.openPopUpSendDialog(),
+                  onPressed: () => ct.validForms(),
                 ),
               ),
             ],
