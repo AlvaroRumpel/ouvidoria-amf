@@ -1,1 +1,6 @@
-0,teste,textoteste,email@teste.com,testeDeresposta,setorX
+0,teste,textoteste,email@teste.com,testeDeresposta,setorX,False
+1,dlfdskl,sdfmsdklfm,as@eem.com,teste de resposta,Administrativo,True
+2,klsfjdaskl,lknflknslk,ajkdansdjnsak@dskfjnadsjkf.com,asdkjasbdaksj alidnjvlakd aslkcmas,Financeiro,False
+3,Teste de assunto,teste de coment�rio,alvaro@email.com,sdgsdgs,Juridico,True
+4,teste,teste,teste@teste.com,srthhhdgdgh,Financeiro,True
+5,ta ruim o juridico,fjsksdjsdkjfhkfhfdjkfhfkhksdfhkadjf,alvaro@email.com,blz cara,Juridico,True

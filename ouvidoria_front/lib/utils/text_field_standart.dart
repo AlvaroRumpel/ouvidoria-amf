@@ -6,6 +6,7 @@ class TextFieldStandart extends StatelessWidget {
   String? hintText;
   int? maxLength;
   int? maxLines;
+  bool isObscure;
   TextEditingController? controller;
 
   TextFieldStandart({
@@ -14,14 +15,16 @@ class TextFieldStandart extends StatelessWidget {
     this.maxLength,
     this.maxLines,
     this.controller,
+    this.isObscure = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: isObscure,
       controller: controller,
       maxLength: maxLength,
-      maxLines: maxLines,
+      maxLines: isObscure ? 1 : maxLines,
       decoration: InputDecoration(
           hintText: hintText,
           enabledBorder: OutlineInputBorder(

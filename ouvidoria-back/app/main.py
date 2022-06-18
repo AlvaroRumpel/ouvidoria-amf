@@ -15,6 +15,14 @@ def getComments():
 def getCommentsById(id: str):
     return api.get_by_comments_id(id)
 
+@app.get("/set-comments/{assunto}/{texto}/{email}/{resposta}/{setor}/{anonimo}")
+def setComments(assunto: str, texto: str, email: str, resposta: str,setor: str,anonimo: bool):
+    return api.setComments(assunto, texto, email,resposta,setor,anonimo)
+
+@app.get("/set-comments-response/{id}/{resposta}")
+def setCommentsResponse(id: str, resposta: str):
+    return api.setCommentsResponse(id, resposta) 
+
 @app.get("/set-users/{usuario}/{senha}")
 def setUsers(usuario: str, senha: str):
     return api.set_users(usuario, senha)

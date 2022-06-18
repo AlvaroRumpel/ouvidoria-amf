@@ -8,6 +8,7 @@ import 'package:ouvidoria_front/utils/colors.dart';
 import 'package:ouvidoria_front/utils/text_field_standart.dart';
 import 'package:ouvidoria_front/utils/text_standart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class ComentFormsController extends GetxController {
   RxBool anonimo = false.obs;
@@ -18,17 +19,17 @@ class ComentFormsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    var localStorage = await SharedPreferences.getInstance();
-    var body = CommentModel(
-      department: 'Adiministrativo',
-      subject: 'Top demais',
-      message: 'Muito bom o atendimento e toda atenção',
-    );
-    List<String> comments = await localStorage.getStringList('comments') ?? [];
-    for (var i = 0; i < 5; i++) {
-      comments.add(body.toJson());
-    }
-    await localStorage.setStringList('comments', comments);
+    // var localStorage = await SharedPreferences.getInstance();
+    // var body = CommentModel(
+    //   department: 'Adiministrativo',
+    //   subject: 'Top demais',
+    //   message: 'Muito bom o atendimento e toda atenção',
+    // );
+    // List<String> comments = await localStorage.getStringList('comments') ?? [];
+    // for (var i = 0; i < 5; i++) {
+    //   comments.add(body.toJson());
+    // }
+    // await localStorage.setStringList('comments', comments);
   }
 
   void validForms() async {
@@ -47,26 +48,22 @@ class ComentFormsController extends GetxController {
       );
       return;
     }
-    try {
-      var localStorage = await SharedPreferences.getInstance();
-      var body = CommentModel(
-        department: department!,
-        subject: subject.text,
-        message: comment.text,
-      );
-      await openPopUpSendDialog(localStorage);
-
-      List<String> comments =
-          await localStorage.getStringList('comments') ?? [];
-      comments.add(body.toJson());
-      await localStorage.setStringList('comments', comments);
-      Get.offAndToNamed('/coment-form');
-    } catch (e) {
-      print(e);
-    }
+    await openPopUpSendDialog();
+    var body = CommentModel(
+      department: department!,
+      subject: subject.text,
+      message: comment.text.trim(),
+      email: email.text,
+      isAnonymous: anonimo.value,
+      response: ' ',
+    );
+    var url = Uri.parse(
+        'http://127.0.0.1:8000/set-comments/${body.subject}/${body.message}/${body.email}/${body.response}/${body.department}/${body.isAnonymous.toString().capitalizeFirst}');
+    await http.get(url);
+    await Get.offAndToNamed('/coment-form');
   }
 
-  Future<void> openPopUpSendDialog(SharedPreferences localStorage) async {
+  Future<void> openPopUpSendDialog() async {
     await Get.defaultDialog(
       barrierDismissible: false,
       title: 'Método de envio',
@@ -121,12 +118,6 @@ class ComentFormsController extends GetxController {
                 );
                 return;
               }
-              var user =
-                  UserModel(email: email.text, isAnonymous: anonimo.value);
-              List<String> users = localStorage.getStringList('users') ?? [];
-              users.add(user.toJson());
-              await localStorage.setStringList('users', users);
-              print('aaa');
               Get.back();
             },
           ),

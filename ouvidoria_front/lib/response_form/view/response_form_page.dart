@@ -61,23 +61,29 @@ class ResponseFormPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextStandart(text: 'Comentário'),
-              Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: CustomColors.container,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.25),
-                      blurRadius: 4,
-                      offset: const Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-                width: double.maxFinite,
-                child: Text(
-                  ct.data.message,
-                  style: GoogleFonts.inter(),
+              ct.obx(
+                ((state) => Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: CustomColors.container,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 4,
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      width: double.maxFinite,
+                      child: Text(
+                        state ?? '',
+                        style: GoogleFonts.inter(),
+                      ),
+                    )),
+                onLoading: const Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
               TextStandart(text: 'Resposta'),
@@ -95,6 +101,7 @@ class ResponseFormPage extends StatelessWidget {
                   ],
                 ),
                 child: TextFieldStandart(
+                  controller: ct.resposta,
                   hintText: 'Descreva o seu comentário...',
                   maxLength: 255,
                   maxLines: 3,
@@ -107,7 +114,7 @@ class ResponseFormPage extends StatelessWidget {
                     alignment: Alignment.center,
                     child: BtnStandart(
                       text: 'Enviar',
-                      onPressed: () {},
+                      onPressed: () => ct.sendResponse(),
                     ),
                   ),
                   Align(
@@ -115,7 +122,7 @@ class ResponseFormPage extends StatelessWidget {
                     child: BtnStandart(
                       color: CustomColors.errorColor,
                       text: 'Cancelar',
-                      onPressed: () => Get.back(),
+                      onPressed: () => Get.offAndToNamed('/comments-view'),
                     ),
                   ),
                 ],

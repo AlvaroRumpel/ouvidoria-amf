@@ -1,14 +1,22 @@
 import 'dart:convert';
 
 class CommentModel {
+  String? id;
   String department;
   String subject;
   String message;
+  String email;
+  String response;
+  bool isAnonymous;
 
   CommentModel({
+    this.id,
     required this.department,
     required this.subject,
     required this.message,
+    required this.email,
+    required this.response,
+    required this.isAnonymous,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,9 +29,13 @@ class CommentModel {
 
   factory CommentModel.fromMap(Map<String, dynamic> map) {
     return CommentModel(
-      department: map['department'] ?? '',
-      subject: map['subject'] ?? '',
-      message: map['message'] ?? '',
+      id: map['id'],
+      department: map['setor'] ?? '',
+      subject: map['assunto'] ?? '',
+      message: map['texto'] ?? '',
+      email: map['email'],
+      response: map['resposta'],
+      isAnonymous: map['anonimo'] == 'False' ? false : true,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ouvidoria_front/login/controller/login_controller.dart';
 import 'package:ouvidoria_front/utils/btn_standart.dart';
 import 'package:ouvidoria_front/utils/text_field_standart.dart';
 import 'package:ouvidoria_front/utils/text_standart.dart';
@@ -7,7 +8,8 @@ import 'package:ouvidoria_front/utils/btn_text_standart.dart';
 import 'package:ouvidoria_front/utils/colors.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  var ct = Get.put(LoginController());
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,19 +63,22 @@ class LoginPage extends StatelessWidget {
                 text: 'Email',
               ),
               TextFieldStandart(
+                controller: ct.emailController,
                 hintText: 'Email',
               ),
               TextStandart(
                 text: 'Senha',
               ),
               TextFieldStandart(
+                isObscure: true,
+                controller: ct.passController,
                 hintText: 'Senha',
               ),
               Align(
                 alignment: Alignment.center,
                 child: BtnStandart(
                   text: 'Acessar',
-                  onPressed: () => Get.offAndToNamed('/comments-view'),
+                  onPressed: () => ct.login(),
                 ),
               ),
               Align(

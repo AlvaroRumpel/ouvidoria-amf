@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           page: () => CommentsViewPage(),
         ),
         GetPage(
-          name: '/response-form',
+          name: '/response-form/:id',
           page: () => ResponseFormPage(),
         ),
       ],

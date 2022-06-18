@@ -90,8 +90,8 @@ class CommentsViewPage extends StatelessWidget {
                           ],
                         ),
                         child: InkWell(
-                          onTap: () => Get.toNamed('/response-form',
-                              arguments: state[index]),
+                          onTap: () =>
+                              Get.toNamed('/response-form/${state[index].id}'),
                           splashColor: CustomColors.blackSecondary,
                           overlayColor:
                               MaterialStateProperty.resolveWith<Color?>(
@@ -102,6 +102,13 @@ class CommentsViewPage extends StatelessWidget {
                                 flex: 1,
                                 child:
                                     TextStandart(text: state[index].department),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextStandart(
+                                    text: !state[index].isAnonymous
+                                        ? state[index].email
+                                        : 'Anonimo'),
                               ),
                               Expanded(
                                 flex: 2,
